@@ -4,7 +4,7 @@ class Loader {
     baseLink: string;
     options: Options;
 
-    constructor(baseLink: string, options: string) {
+    constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
         this.options = options;
     }

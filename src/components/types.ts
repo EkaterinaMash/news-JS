@@ -31,5 +31,5 @@ interface DataInterface {
 
 export type Data = Readonly<DataInterface>;
 
-export type callbackFunction = (argument: Data) => void;
+export type callbackFunction = (argument?: Data) => void;
 
