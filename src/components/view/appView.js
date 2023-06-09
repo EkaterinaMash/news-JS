@@ -9,12 +9,10 @@ var AppView = /** @class */ (function () {
         this.sources = new sources_1.default();
     }
     AppView.prototype.drawNews = function (data) {
-        console.log(1, data);
         var values = (data === null || data === void 0 ? void 0 : data.articles) ? data === null || data === void 0 ? void 0 : data.articles : [];
         this.news.draw(values);
     };
     AppView.prototype.drawSources = function (data) {
-        console.log(2, data);
         var values = (data === null || data === void 0 ? void 0 : data.sources) ? data === null || data === void 0 ? void 0 : data.sources : [];
         this.sources.draw(values);
     };
