@@ -1,5 +1,5 @@
 import './sources.css';
-import {SourcesObject} from '../../types';
+import { SourcesObject } from '../../types';
 
 class Sources {
     public draw(data: Array<SourcesObject>) {

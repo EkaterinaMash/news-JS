@@ -1,8 +1,8 @@
-import {Options, getRespArgument, Data, callbackFunction} from '../types'
+import { Options, getRespArgument, Data, callbackFunction } from '../types';
 
 class Loader {
-    private baseLink: string;
-    private options: Options;
+    baseLink: string;
+    options: Options;
 
     constructor(baseLink: string, options: Options) {
         this.baseLink = baseLink;
@@ -10,7 +10,7 @@ class Loader {
     }
 
     protected getResp(
-        {endpoint, options = {}}: getRespArgument,
+        { endpoint, options = {} }: getRespArgument,
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -29,7 +29,7 @@ class Loader {
     }
 
     private makeUrl(options: Options, endpoint: string): string {
-        const urlOptions: Options = {...this.options, ...options};
+        const urlOptions: Options = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
@@ -40,9 +40,9 @@ class Loader {
     }
 
     private load(method: string, endpoint: string, callback: callbackFunction, options: Options = {}) {
-        fetch(this.makeUrl(options, endpoint), {method})
+        fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res: Response): Promise<Type> => res.json())
+            .then((res: Response): Promise<Data> => res.json())
             .then((data: Data): void => callback(data))
             .catch((err) => console.error(err));
     }

@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import {Data} from '../types';
+import { Data } from '../types';
 
 class App {
     private controller: AppController;
@@ -14,7 +14,9 @@ class App {
     public start() {
         document
             .querySelector('.sources')
-            .addEventListener('click', (e: Event) => this.controller.getNews(e, (data: Data) => this.view.drawNews(data)));
+            .addEventListener('click', (e: Event) =>
+                this.controller.getNews(e, (data: Data) => this.view.drawNews(data))
+            );
         this.controller.getSources((data: Data) => this.view.drawSources(data));
     }
 }

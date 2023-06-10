@@ -1,5 +1,5 @@
 import './news.css';
-import {NewsObject} from '../../types';
+import { NewsObject } from '../../types';
 
 class News {
     public draw(data: Array<NewsObject>): void {
@@ -14,9 +14,7 @@ class News {
             if (idx % 2) newsClone.querySelector('.news__item').classList.add('alt');
 
             const newsPhoto: HTMLElement = newsClone.querySelector('.news__meta-photo');
-            newsPhoto.style.backgroundImage = `url(${
-                item.urlToImage || 'img/news_placeholder.jpg'
-            })`;
+            newsPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
             newsClone.querySelector('.news__meta-author').textContent = item.author || item.source.name;
             newsClone.querySelector('.news__meta-date').textContent = item.publishedAt
                 .slice(0, 10)
