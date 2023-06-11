@@ -1,4 +1,4 @@
-import { Options, getRespArgument, Data, callbackFunction } from '../types';
+import { Options, getRespArgument, callbackFunction, NewsData, SourcesData } from '../types';
 
 class Loader {
     baseLink: string;
@@ -11,7 +11,7 @@ class Loader {
 
     protected getResp(
         { endpoint, options = {} }: getRespArgument,
-        callback = () => {
+        callback: callbackFunction<NewsData | SourcesData> = () => {
             console.error('No callback for GET response');
         }
     ): void {
@@ -39,11 +39,16 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private load(method: string, endpoint: string, callback: callbackFunction, options: Options = {}) {
+    private load(
+        method: string,
+        endpoint: string,
+        callback: callbackFunction<NewsData | SourcesData>,
+        options: Options = {}
+    ) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res: Response): Promise<Data> => res.json())
-            .then((data: Data): void => callback(data))
+            .then((res: Response): Promise<NewsData | SourcesData> => res.json())
+            .then((data: NewsData | SourcesData): void => callback(data))
             .catch((err) => console.error(err));
     }
 }

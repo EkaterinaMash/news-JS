@@ -7,12 +7,20 @@ export interface getRespArgument {
     options?: Options;
 }
 
-export interface SourcesObject {
-    readonly [property: string]: string;
+export interface SourcesInterface {
+    category: string;
+    country: string;
+    description: string;
+    id: string;
+    language: string;
+    name: string;
+    url: string;
 }
 
-export interface NewsObject {
-    source: SourcesObject;
+type Source = Pick<SourcesInterface, 'id' | 'name'>;
+
+export interface ArticleInterface {
+    source: Source;
     author: string;
     content: string;
     description: string;
@@ -24,14 +32,18 @@ export interface NewsObject {
 
 interface DataInterface {
     status: string;
-    totalResults?: number;
-    sources?: Array<SourcesObject>;
-    articles?: Array<NewsObject>;
+    totalResults: number;
+    sources: Array<SourcesInterface>;
+    articles: Array<ArticleInterface>;
 }
 
-export type Data = Readonly<DataInterface>;
+type NewsDataInterface = Pick<DataInterface, 'status' | 'totalResults' | 'articles'>;
+type SourcesDataInterface = Pick<DataInterface, 'status' | 'sources'>;
 
-export type callbackFunction = (argument?: Data) => void;
+export type NewsData = Readonly<NewsDataInterface>;
+export type SourcesData = Readonly<SourcesDataInterface>;
+
+export type callbackFunction<Type> = (argument?: Type) => void;
 
 export enum ArticlesAmount {
     Three = 3,

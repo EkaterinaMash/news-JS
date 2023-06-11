@@ -1,5 +1,5 @@
 import './news.css';
-import { NewsObject, ArticlesAmount, ScreenWidth } from '../../types';
+import { ArticleInterface, ArticlesAmount, ScreenWidth } from '../../types';
 
 function countArticlesAmount(): number {
     if (window.innerWidth <= ScreenWidth.Mobile) {
@@ -12,14 +12,14 @@ function countArticlesAmount(): number {
 }
 
 class News {
-    public draw(data: Array<NewsObject>): void {
-        const newsAmount = countArticlesAmount();
-        const news: Array<NewsObject> =
-            data.length >= newsAmount ? data.filter((_item, idx) => idx < newsAmount) : data;
+    public draw(data: Array<ArticleInterface>): void {
+        const newsAmount: number = countArticlesAmount();
+        const news: Array<ArticleInterface> =
+            data.length >= newsAmount ? data.filter((_item: ArticleInterface, idx: number) => idx < newsAmount) : data;
         const fragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement = document.querySelector('#newsItemTemp');
 
-        news.forEach((item: NewsObject, idx: number) => {
+        news.forEach((item: ArticleInterface, idx: number) => {
             const newsClone: HTMLElement = newsItemTemp.content.cloneNode(true) as HTMLElement;
 
             if (idx % 2) newsClone.querySelector('.news__item').classList.add('alt');
