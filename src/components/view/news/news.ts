@@ -1,10 +1,21 @@
 import './news.css';
-import { NewsObject } from '../../types';
+import { NewsObject, ArticlesAmount, ScreenWidth } from '../../types';
+
+function countArticlesAmount(): number {
+    if (window.innerWidth <= ScreenWidth.Mobile) {
+        return ArticlesAmount.Three;
+    } else if (ScreenWidth.Mobile < window.innerWidth && window.innerWidth <= ScreenWidth.Tablet) {
+        return ArticlesAmount.Five;
+    } else if (ScreenWidth.Tablet < window.innerWidth) {
+        return ArticlesAmount.Ten;
+    }
+}
 
 class News {
     public draw(data: Array<NewsObject>): void {
-        const news: Array<NewsObject> = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
-
+        const newsAmount = countArticlesAmount();
+        const news: Array<NewsObject> =
+            data.length >= newsAmount ? data.filter((_item, idx) => idx < newsAmount) : data;
         const fragment = document.createDocumentFragment();
         const newsItemTemp: HTMLTemplateElement = document.querySelector('#newsItemTemp');
 

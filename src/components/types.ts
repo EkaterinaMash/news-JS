@@ -32,3 +32,14 @@ interface DataInterface {
 export type Data = Readonly<DataInterface>;
 
 export type callbackFunction = (argument?: Data) => void;
+
+export enum ArticlesAmount {
+    Three = 3,
+    Five = 5,
+    Ten = 10,
+}
+
+export enum ScreenWidth {
+    Mobile = 320,
+    Tablet = 640,
+}
