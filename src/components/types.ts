@@ -30,6 +30,8 @@ export interface ArticleInterface {
     urlToImage: string;
 }
 
+export type Article = Partial<ArticleInterface>;
+
 interface DataInterface {
     status: string;
     totalResults: number;

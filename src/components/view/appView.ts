@@ -17,7 +17,6 @@ export class AppView {
     }
 
     public drawSources(data: SourcesData) {
-        console.log(data);
         const values: Array<SourcesInterface> = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }
