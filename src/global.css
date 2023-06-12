@@ -19,28 +19,39 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
 .course-info {
     display: grid;
     width: 100%;
     align-items: center;
 }
+
+.rsschool img {
+    width: 100px;
+    margin: 0 auto 0 auto;
+}
+
 .author, .rsschool, .today-date, .author a {
     font-size: 14px;
     margin: 5px;
     color: #7f7f7f;
     text-align: center;
 }
+
 footer .copyright {
     font-size: 14px;
     color: #333;
     text-align: center;
 }
+
 footer .copyright a {
     color: #444;
 }
+
 footer .copyright a:hover {
     color: #555;
 }
+
 footer .copyright:before {
     content: '©';
 }
