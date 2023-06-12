@@ -7,7 +7,7 @@ export interface getRespArgument {
     options?: Options;
 }
 
-export interface SourcesInterface {
+export interface SourceInterface {
     category: string;
     country: string;
     description: string;
@@ -17,7 +17,7 @@ export interface SourcesInterface {
     url: string;
 }
 
-type Source = Pick<SourcesInterface, 'id' | 'name'>;
+export type Source = Pick<SourceInterface, 'id' | 'name'>;
 
 export interface ArticleInterface {
     source: Source;
@@ -35,7 +35,7 @@ export type Article = Partial<ArticleInterface>;
 interface DataInterface {
     status: string;
     totalResults: number;
-    sources: Array<SourcesInterface>;
+    sources: Array<SourceInterface>;
     articles: Array<ArticleInterface>;
 }
 

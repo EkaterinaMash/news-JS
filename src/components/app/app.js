@@ -11,7 +11,9 @@ var App = /** @class */ (function () {
         var _this = this;
         document
             .querySelector('.sources')
-            .addEventListener('click', function (e) { return _this.controller.getNews(e, function (data) { return _this.view.drawNews(data); }); });
+            .addEventListener('click', function (e) {
+            return _this.controller.getNews(e, function (data) { return _this.view.drawNews(data); });
+        });
         this.controller.getSources(function (data) { return _this.view.drawSources(data); });
     };
     return App;

@@ -12,7 +12,7 @@ function countArticlesAmount(): number {
 }
 
 function renderNews(
-    newsObject: Article,
+    article: Article,
     newsItemTemp: HTMLTemplateElement,
     fragment: DocumentFragment,
     idx: number
@@ -23,18 +23,18 @@ function renderNews(
 
     const newsPhoto: HTMLElement = newsClone.querySelector('.news__meta-photo');
 
-    newsPhoto.style.backgroundImage = `url(${newsObject.urlToImage || 'img/news_placeholder.jpg'})`;
-    newsClone.querySelector('.news__meta-author').textContent = newsObject.author || newsObject.source.name;
-    newsClone.querySelector('.news__meta-date').textContent = newsObject.publishedAt
+    newsPhoto.style.backgroundImage = `url(${article.urlToImage || 'img/news_placeholder.jpg'})`;
+    newsClone.querySelector('.news__meta-author').textContent = article.author || article.source.name;
+    newsClone.querySelector('.news__meta-date').textContent = article.publishedAt
         .slice(0, 10)
         .split('-')
         .reverse()
         .join('-');
 
-    newsClone.querySelector('.news__description-title').textContent = newsObject.title;
-    newsClone.querySelector('.news__description-source').textContent = newsObject.source.name;
-    newsClone.querySelector('.news__description-content').textContent = newsObject.description;
-    newsClone.querySelector('.news__read-more a').setAttribute('href', newsObject.url);
+    newsClone.querySelector('.news__description-title').textContent = article.title;
+    newsClone.querySelector('.news__description-source').textContent = article.source.name;
+    newsClone.querySelector('.news__description-content').textContent = article.description;
+    newsClone.querySelector('.news__read-more a').setAttribute('href', article.url);
 
     fragment.append(newsClone);
 }
@@ -48,8 +48,13 @@ class News {
         const newsItemTemp: HTMLTemplateElement = document.querySelector('#newsItemTemp');
 
         news.forEach((item: ArticleInterface, idx: number) => {
-            const { author, source, publishedAt, title, description } = item;
-            renderNews({ author, source, publishedAt, title, description }, newsItemTemp, fragment, idx);
+            const { author, source, publishedAt, title, description, url, urlToImage } = item;
+            renderNews(
+                { author, source, publishedAt, title, description, url, urlToImage },
+                newsItemTemp,
+                fragment,
+                idx
+            );
         });
 
         document.querySelector('.news').innerHTML = '';
