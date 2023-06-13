@@ -6,9 +6,8 @@ function countArticlesAmount(): number {
         return ArticlesAmount.Three;
     } else if (ScreenWidth.Mobile < window.innerWidth && window.innerWidth <= ScreenWidth.Tablet) {
         return ArticlesAmount.Five;
-    } else if (ScreenWidth.Tablet < window.innerWidth) {
-        return ArticlesAmount.Ten;
     }
+    return ArticlesAmount.Ten;
 }
 
 function renderNews(
@@ -18,23 +17,25 @@ function renderNews(
     idx: number
 ): void {
     const newsClone: HTMLElement = newsItemTemp.content.cloneNode(true) as HTMLElement;
+    const newsPhoto: HTMLElement = newsClone.querySelector('.news__meta-photo') as HTMLElement;
+    const newsItem = newsClone.querySelector('.news__item');
+    const newsAuthor = newsClone.querySelector('.news__meta-author');
+    const newsDate = newsClone.querySelector('.news__meta-date');
+    const newsTitle = newsClone.querySelector('.news__description-title');
+    const newsSource = newsClone.querySelector('.news__description-source');
+    const newsContent = newsClone.querySelector('.news__description-content');
+    const newsReadMore = newsClone.querySelector('.news__read-more a');
 
-    if (idx % 2) newsClone.querySelector('.news__item').classList.add('alt');
+    if (idx % 2 && newsItem) newsItem.classList.add('alt');
+    if (newsPhoto) newsPhoto.style.backgroundImage = `url(${article.urlToImage || 'img/news_placeholder.jpg'})`;
+    if (newsAuthor) newsAuthor.textContent = article.author ?? article.source?.name ?? 'Unknown';
+    if (newsDate && article.publishedAt)
+        newsDate.textContent = article.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
-    const newsPhoto: HTMLElement = newsClone.querySelector('.news__meta-photo');
-
-    newsPhoto.style.backgroundImage = `url(${article.urlToImage || 'img/news_placeholder.jpg'})`;
-    newsClone.querySelector('.news__meta-author').textContent = article.author || article.source.name;
-    newsClone.querySelector('.news__meta-date').textContent = article.publishedAt
-        .slice(0, 10)
-        .split('-')
-        .reverse()
-        .join('-');
-
-    newsClone.querySelector('.news__description-title').textContent = article.title;
-    newsClone.querySelector('.news__description-source').textContent = article.source.name;
-    newsClone.querySelector('.news__description-content').textContent = article.description;
-    newsClone.querySelector('.news__read-more a').setAttribute('href', article.url);
+    if (newsTitle && article.title) newsTitle.textContent = article.title;
+    if (newsContent && article.description) newsContent.textContent = article.description;
+    if (newsReadMore && article.url) newsReadMore.setAttribute('href', article.url);
+    if (newsSource && article.source) newsSource.textContent = article.source.name;
 
     fragment.append(newsClone);
 }
@@ -45,7 +46,8 @@ class News {
         const news: Array<ArticleInterface> =
             data.length >= newsAmount ? data.filter((_item: ArticleInterface, idx: number) => idx < newsAmount) : data;
         const fragment = document.createDocumentFragment();
-        const newsItemTemp: HTMLTemplateElement = document.querySelector('#newsItemTemp');
+        const newsItemTemp: HTMLTemplateElement = document.querySelector('#newsItemTemp') as HTMLTemplateElement;
+        const newsContainer = document.querySelector('.news');
 
         news.forEach((item: ArticleInterface, idx: number) => {
             const { author, source, publishedAt, title, description, url, urlToImage } = item;
@@ -57,8 +59,10 @@ class News {
             );
         });
 
-        document.querySelector('.news').innerHTML = '';
-        document.querySelector('.news').appendChild(fragment);
+        if (newsContainer) {
+            newsContainer.innerHTML = '';
+            newsContainer.appendChild(fragment);
+        }
     }
 }
 

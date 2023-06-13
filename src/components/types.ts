@@ -45,7 +45,7 @@ type SourcesDataInterface = Pick<DataInterface, 'status' | 'sources'>;
 export type NewsData = Readonly<NewsDataInterface>;
 export type SourcesData = Readonly<SourcesDataInterface>;
 
-export type callbackFunction<Type> = (argument?: Type) => void;
+export type callbackFunction<Type> = (argument: Type) => void;
 
 export enum ArticlesAmount {
     Three = 3,

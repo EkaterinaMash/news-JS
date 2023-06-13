@@ -12,11 +12,12 @@ class App {
     }
 
     public start() {
-        document
-            .querySelector('.sources')
-            .addEventListener('click', (e: Event) =>
+        const sources = document.querySelector('.sources');
+        if (sources) {
+            sources.addEventListener('click', (e: Event) =>
                 this.controller.getNews(e, (data: NewsData) => this.view.drawNews(data))
             );
+        }
         this.controller.getSources((data: SourcesData) => this.view.drawSources(data));
     }
 }

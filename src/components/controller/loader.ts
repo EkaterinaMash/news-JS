@@ -11,7 +11,7 @@ class Loader {
 
     protected getResp(
         { endpoint, options = {} }: getRespArgument,
-        callback: callbackFunction<NewsData | SourcesData> = () => {
+        callback: callbackFunction<NewsData & SourcesData> = () => {
             console.error('No callback for GET response');
         }
     ): void {
@@ -42,13 +42,13 @@ class Loader {
     private load(
         method: string,
         endpoint: string,
-        callback: callbackFunction<NewsData | SourcesData>,
+        callback: callbackFunction<NewsData & SourcesData>,
         options: Options = {}
-    ) {
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res: Response): Promise<NewsData | SourcesData> => res.json())
-            .then((data: NewsData | SourcesData): void => callback(data))
+            .then((res: Response): Promise<NewsData & SourcesData> => res.json())
+            .then((data: NewsData & SourcesData): void => callback(data))
             .catch((err) => console.error(err));
     }
 }
