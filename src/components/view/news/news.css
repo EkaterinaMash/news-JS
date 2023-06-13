@@ -1,8 +1,7 @@
 .news__item {
     display: flex;
     flex-direction: column;
-    margin: 1rem auto;
-    margin-bottom: 1.6%;
+    margin: 1rem auto 1.6%;
     background: #fff;
     color: #333;
     line-height: 1.4;

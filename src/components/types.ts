@@ -1,0 +1,59 @@
+export interface Options {
+    [property: string]: string;
+}
+
+export interface getRespArgument {
+    endpoint: string;
+    options?: Options;
+}
+
+export interface SourceInterface {
+    category: string;
+    country: string;
+    description: string;
+    id: string | null;
+    language: string;
+    name: string;
+    url: string;
+}
+
+export type Source = Pick<SourceInterface, 'id' | 'name'>;
+
+export interface ArticleInterface {
+    source: Source;
+    author: string;
+    content: string;
+    description: string;
+    publishedAt: string;
+    title: string;
+    url: string;
+    urlToImage: string;
+}
+
+export type Article = Partial<ArticleInterface>;
+
+interface DataInterface {
+    status: string;
+    totalResults: number;
+    sources: Array<SourceInterface>;
+    articles: Array<ArticleInterface>;
+}
+
+type NewsDataInterface = Pick<DataInterface, 'status' | 'totalResults' | 'articles'>;
+type SourcesDataInterface = Pick<DataInterface, 'status' | 'sources'>;
+
+export type NewsData = Readonly<NewsDataInterface>;
+export type SourcesData = Readonly<SourcesDataInterface>;
+
+export type CallbackFunction<Type> = (argument: Type) => void;
+
+export enum ArticlesAmount {
+    Three = 3,
+    Five = 5,
+    Ten = 10,
+}
+
+export enum ScreenWidth {
+    Mobile = 320,
+    Tablet = 640,
+}
