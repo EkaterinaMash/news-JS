@@ -6,7 +6,7 @@ function renderSources(source: Source, sourceItemTemp: HTMLTemplateElement, frag
     const sourceItemName = sourceClone.querySelector('.source__item-name');
     const sourceItem = sourceClone.querySelector('.source__item');
 
-    if (sourceItem && sourceItemName) {
+    if (sourceItem && sourceItemName && source.id) {
         sourceItemName.textContent = source.name;
         sourceItem.setAttribute('data-source-id', source.id);
     }
